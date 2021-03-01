@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: amurciac
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: amurciac/proyecto-api:v1.0.0
+    container_name: ucdevops-api
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./var/www
+    networks:
+      - ucdevops
+  nginx:
+    image: nginx:alpine
+    container_name: ucdevops-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./ucreativa-api:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - ucdevops
+
+networks:
+  ucdevops:
+    driver: bridge
