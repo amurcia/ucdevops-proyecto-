@@ -3,18 +3,17 @@ pipeline {
 
     stages {
         stage('Checkout'){
-            
+
             steps{
                 script{
-                    
+
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:amurcia/ucdevops-proyecto-.git']]])
-                    
-                    
+
+
                 }
             }
-            
+
         }
-        
 
 stage('Sonarqube') {
     environment {
@@ -22,7 +21,7 @@ stage('Sonarqube') {
     }
     steps {
         withSonarQubeEnv('sonarqube') {
-            
+
             sh '''${scannerHome}/bin/sonar-scanner \
                 -Dsonar.projectKey=ucdevops-proyecto \
                 -Dsonar.sources=. \
