@@ -91,7 +91,7 @@ pipeline {
                         dockerImage.push()
                     }
 
-                    if (env.BRANCH_NAME.equals("master")) {
+                    if (env.BRANCH_NAME.equals("main")) {
                         docker.withRegistry('', registryCredential) {
                             dockerImage.push('latest')
                         }
@@ -109,7 +109,7 @@ pipeline {
 post {
     always {
         echo 'Fin del Procesdo de Pipeline'
-        deleteDir()
+//        deleteDir()
     }
 }
 
