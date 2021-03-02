@@ -31,6 +31,15 @@ pipeline {
 
         }
 
+        stage('Build') {
+            steps {
+                script {
+                    echo "build"
+                }
+            }
+
+        }
+
         stage('Sonarqube') {
             environment {
                 scannerHome = tool 'SonarQubeScanner'
@@ -46,6 +55,12 @@ pipeline {
                 -Dsonar.password=1q2w3e4r'''
                 }
 
+                sleep(30)
+                timeout(time: 1, unit: 'MINUTES') {
+                    // Just in case something goes wrong, pipeline will be killed after a timeout
+                    waitForQualityGate abortPipeline: true
+                }
+
                 script {
 
                     branchName = ""
@@ -57,7 +72,16 @@ pipeline {
             }
         }
 
-    }
+        stage('Build Docker Image') {
+
+            steps{
+                script{
+                    echo "Docker Image"
+                }
+            }
+        }
+
+        }
     post {
         always {
             echo 'Fin del Procesdo de Pipeline'
