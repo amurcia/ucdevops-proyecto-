@@ -77,27 +77,29 @@ pipeline {
             steps {
                 script {
 
-                    if (env.BRANCH_NAME.equals("main")) {
+                    step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
 
-                        version = ":$BUILD_NUMBER"
-
-                    } else {
-                        version = ":" + env.BRANCH_NAME.replace("/", "-") + "-$BUILD_NUMBER"
-                    }
-
-                    dockerImageName = registry + version
-                    dockerImage = docker.build "${dockerImageName}"
-                    docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
-                    }
-
-                    if (env.BRANCH_NAME.equals("main")) {
-                        docker.withRegistry('', registryCredential) {
-                            dockerImage.push('latest')
-                        }
-                        sh "docker rmi " + $ { registry } + "latest"
-                    }
-                    sh "docker rmi $registry$version"
+//                    if (env.BRANCH_NAME.equals("main")) {
+//
+//                        version = ":$BUILD_NUMBER"
+//
+//                    } else {
+//                        version = ":" + env.BRANCH_NAME.replace("/", "-") + "-$BUILD_NUMBER"
+//                    }
+//
+//                    dockerImageName = registry + version
+//                    dockerImage = docker.build "${dockerImageName}"
+//                    docker.withRegistry('', registryCredential) {
+//                        dockerImage.push()
+//                    }
+//
+//                    if (env.BRANCH_NAME.equals("main")) {
+//                        docker.withRegistry('', registryCredential) {
+//                            dockerImage.push('latest')
+//                        }
+//                        sh "docker rmi " + $ { registry } + "latest"
+//                    }
+//                    sh "docker rmi $registry$version"
                 }
 
 
