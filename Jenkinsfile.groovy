@@ -77,6 +77,8 @@ pipeline {
             steps {
                 script {
 
+                    echo "Build Docker Images Here"
+
 //                    step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
 
 //                    if (env.BRANCH_NAME.equals("main")) {
