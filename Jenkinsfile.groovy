@@ -77,7 +77,7 @@ pipeline {
             steps {
                 script {
 
-                    step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
+//                    step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
 
 //                    if (env.BRANCH_NAME.equals("main")) {
 //
@@ -111,7 +111,7 @@ pipeline {
 post {
     always {
         echo 'Fin del Procesdo de Pipeline'
-//        deleteDir()
+        deleteDir()
     }
 }
 
