@@ -1,7 +1,7 @@
 node {
     
     stage('Clone repo') {
-        git branch: "develop", url: "https://github.com/amurcia/ucdevops-proyecto-.git", credentialsId: "github"
+       checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub', url: 'https://github.com/amurcia/ucdevops-proyecto-.git']]])
     }
     
     stage('SonarTests') {
