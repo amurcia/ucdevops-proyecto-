@@ -19,7 +19,6 @@ class PeopleController extends Controller
      */
 
     private $people;
-    private $msg;
     private $error;
     private $add;
     private $update;
