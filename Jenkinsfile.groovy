@@ -8,7 +8,7 @@ pipeline {
                 script {
                     try {
 
-                        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:amurcia/ucdevops-proyecto-.git']]])
+                        checkout([$class: 'GitSCM', branches: [[name: 'fix/db']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:amurcia/ucdevops-proyecto-.git']]])
 
                     } catch (all) {
                         currentBuild.result = 'FAILURE'
